@@ -33,17 +33,11 @@ Code comments are partly in Chinese. `data_prep/README.md` documents the inputs,
 
 ## Running the available analysis steps
 
-The repository is not yet a complete raw-data-to-figure pipeline. The original
-scripts for the six steps listed under **Not yet included** are awaiting transfer
-from the original analysis workspace. They will be uploaded by the authors after
-that transfer. No reconstructed replacements are included.
-
 `analysis/run_all.sh` requires the locally prepared input files described in
 `data_prep/README.md`, including `cohort_info.json`, `pi_pain_meas.txt`, and the two
 Module B extracts. It stops when required inputs are missing. It does not run the
 subgroup and interaction scripts or generate the figures; those scripts are
-listed separately below. Setting the path variables alone does not recreate
-the missing input-preparation steps.
+listed separately below.
 
 All paths are set by environment variables (see `config.yaml`):
 
@@ -60,7 +54,9 @@ Steps:
 2. `analysis/build_571_dataset.py`: analysis dataset; excludes blocks given after the end of anesthesia (n = 573) and blocks given more than 24 h before the start of anesthesia (n = 571). `verify_trigger_condition.py` checks that requiring the triggering pain score to be recorded after the end of anesthesia leaves the events unchanged.
 3. `analysis/run_v26.R`: primary cause-specific Cox model, Schoenfeld test, time-split Firth model, sensitivity analyses (Fine–Gray, Firth, overlap weighting and others).
 4. Sensitivity analyses: `01_mice_extended.R` (extended model with multiple imputation), `02_no_shoulder.R`, `03_dedup.py` + `03_dedup_cox.R` (same-minute duplicate records), `interaction_v26.R` (volume × surgical category), `v26_subg2.R` / `v26_subg3.R` (subgroups), `sens_t0_early_excl.R` (check of the 24-h rule), `bench_v26.R` (benchmark).
-5. Supplementary analyses: `c1_abc.py` (key secondary outcome, any opioid use: models A, B and C), `c2_riskdiff.py` (cumulative incidence differences), `d1_ipw_291.py` (inverse probability weighting for missing pain scores), `e3_bias_v2.py` (probabilistic bias analysis), `04_moduleB_revised.py` (conversion to general anesthesia and intraoperative opioid use).
+5. Supplementary analyses: `c1_abc.py` (key secondary outcome, any opioid use: models A, B and C), `c2_riskdiff.py` (cumulative incidence differences), `d1_ipw_291.py` (inverse probability weighting for missing pain scores), `e3_bias_v2.py` (probabilistic bias analysis), `evalue.py` (E-value), `04_moduleB_revised.py` (conversion to general anesthesia and intraoperative opioid use), `supp_table1.py` (analgesics defining the rescue events, Supplementary Table I), `lower_extremity.py` (lower-extremity cohort, CPT 64447/64445, Supplementary Figure 1), `export_cif_inputs.py` (input files for the cumulative incidence figures).
+
+Upstream extraction scripts: `data_prep/extract_pain_meas.py` (pain measurements from the Epic flowsheet table, input to `data_prep/05`), `data_prep/extract_proc_meds.py` (procedure events and medication records for Module B).
 
 ## Correspondence with the manuscript
 
@@ -73,24 +69,6 @@ Steps:
 | Supplementary Table IV | `analysis/c1_abc.py`, `c2_riskdiff.py`, `04_moduleB_revised.py` |
 | Supplementary Table V | `analysis/d1_ipw_291.py`, `e3_bias_v2.py` |
 | Figures 1–3, Supplementary Figure 1 | `figures/` |
-
-## Not yet included
-
-The original scripts for the following six steps have not yet been added and
-are awaiting transfer from the original analysis workspace:
-
-- extraction of pain intensity measurements from the MOVER Epic measurement table (`pi_pain_meas.txt`, input to `data_prep/05`);
-- extraction of procedure events and medication administration records used by `04_moduleB_revised.py`;
-- construction of the lower-extremity cohort (CPT 64447/64445) and its analysis (Supplementary Figure 1);
-- Supplementary Table I (analgesics that defined the rescue analgesia events);
-- export of the input files for `figures/plot_cif_figures.py` (`primary.csv`: `time_h`, `status`, `vol_group`; `lower.csv`: `time_h`, `status`, `block`);
-- E-value calculation.
-
-The Table I generator and the preparation of `cohort_info.json` should also be
-included with the original-code transfer. The latter is an input to
-`data_prep/02_build_cohort.py`; the current upstream scripts do not generate it.
-Existing aggregate results and manuscript figures must not be taken as a
-validation of these missing steps in this repository.
 
 ## Figures
 
