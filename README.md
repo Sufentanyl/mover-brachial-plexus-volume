@@ -2,7 +2,7 @@
 
 Analysis code for the retrospective cohort study:
 
-> Feng Q, Jing Y, Han C. Local anesthetic volume and early rescue analgesia after single-shot brachial plexus block: a retrospective cohort study. *Submitted to Minerva Anestesiologica.*
+> Feng Q, Jing Y, Han C. Local anesthetic volume and early rescue analgesia after single-shot brachial plexus block: a retrospective cohort study. *Prepared for submission to Minerva Anestesiologica.*
 
 The study used the Medical Informatics Operating Room Vitals and Events Repository (MOVER), version 2 (Epic component, University of California, Irvine, 2017–2023), to examine the association between cumulative perineural local anesthetic volume and time to in-hospital rescue analgesia in 571 adults who received a single-shot brachial plexus block.
 
@@ -18,7 +18,7 @@ The study used the Medical Informatics Operating Room Vitals and Events Reposito
 data_prep/   00–07  upstream pipeline from the MOVER Epic extracts to the cohort,
                     exposure, pain scores, primary outcome and dexamethasone files
 analysis/           analysis dataset (n = 571), primary model, sensitivity and
-                    supplementary analyses; run_all.sh runs the whole pipeline
+                    supplementary analyses; run_all.sh runs the listed steps
 figures/            Figure 1 (flowchart) and Figures 2, 3 and Supplementary Figure 1
 config.yaml         description of the path variables
 ```
@@ -31,7 +31,19 @@ Code comments are partly in Chinese. `data_prep/README.md` documents the inputs,
 - R 4.3.3 with `survival`, `cmprsk` and `coxphf` (1.13.4). Multiple imputation is implemented in base R (fully conditional specification) in `analysis/01_mice_extended.R`.
 - Random seed 20261010 for bootstrap and Monte Carlo procedures.
 
-## Running the pipeline
+## Running the available analysis steps
+
+The repository is not yet a complete raw-data-to-figure pipeline. The original
+scripts for the six steps listed under **Not yet included** are awaiting transfer
+from the original analysis workspace. They will be uploaded by the authors after
+that transfer. No reconstructed replacements are included.
+
+`analysis/run_all.sh` requires the locally prepared input files described in
+`data_prep/README.md`, including `cohort_info.json`, `pi_pain_meas.txt`, and the two
+Module B extracts. It stops when required inputs are missing. It does not run the
+subgroup and interaction scripts or generate the figures; those scripts are
+listed separately below. Setting the path variables alone does not recreate
+the missing input-preparation steps.
 
 All paths are set by environment variables (see `config.yaml`):
 
@@ -54,7 +66,8 @@ Steps:
 
 | Manuscript | Script |
 |---|---|
-| Table I, Table II | `analysis/run_v26.R` |
+| Table I | Descriptive table-generation script not included; `run_v26.R` does not generate Table I |
+| Table II | `analysis/run_v26.R` |
 | Table III | `analysis/run_v26.R`, `01_mice_extended.R`, `02_no_shoulder.R`, `03_dedup*.{py,R}` |
 | Interaction and subgroups | `analysis/interaction_v26.R`, `v26_subg2.R`, `v26_subg3.R` |
 | Supplementary Table IV | `analysis/c1_abc.py`, `c2_riskdiff.py`, `04_moduleB_revised.py` |
@@ -63,7 +76,8 @@ Steps:
 
 ## Not yet included
 
-The following steps were performed but their scripts have not yet been added; they will be added to this repository:
+The original scripts for the following six steps have not yet been added and
+are awaiting transfer from the original analysis workspace:
 
 - extraction of pain intensity measurements from the MOVER Epic measurement table (`pi_pain_meas.txt`, input to `data_prep/05`);
 - extraction of procedure events and medication administration records used by `04_moduleB_revised.py`;
@@ -71,6 +85,12 @@ The following steps were performed but their scripts have not yet been added; th
 - Supplementary Table I (analgesics that defined the rescue analgesia events);
 - export of the input files for `figures/plot_cif_figures.py` (`primary.csv`: `time_h`, `status`, `vol_group`; `lower.csv`: `time_h`, `status`, `block`);
 - E-value calculation.
+
+The Table I generator and the preparation of `cohort_info.json` should also be
+included with the original-code transfer. The latter is an input to
+`data_prep/02_build_cohort.py`; the current upstream scripts do not generate it.
+Existing aggregate results and manuscript figures must not be taken as a
+validation of these missing steps in this repository.
 
 ## Figures
 

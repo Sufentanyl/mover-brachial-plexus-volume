@@ -1,5 +1,7 @@
 #!/bin/bash
-# MOVER 臂丛阻滞分析 - 端到端运行脚本（571 版主队列）
+# MOVER 臂丛阻滞分析 - 已收录分析步骤（571 版主队列）
+# 需预先提供 README 所列输入；本脚本不包含尚待上传的原始提取步骤、
+# 下肢队列、交互/亚组分析和作图。不是完整的原始数据到图表管线。
 # 用法： MOVER_DIR=/path/to/MOVER WORK_DIR=/path/to/work OUT_DIR=/path/to/out bash run_all.sh
 #   MOVER_DIR: MOVER v2 原始数据目录（含 EPIC_EMR 等）
 #   WORK_DIR:  中间文件目录
