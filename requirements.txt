@@ -1,0 +1,11 @@
+# Python 3.12.3
+lifelines==0.30.3
+pandas==2.3.3
+numpy==2.5.3
+scikit-learn==1.9.1
+statsmodels==0.15.0
+matplotlib>=3.8
+Pillow>=10.0
+
+# R 4.3.3 (install separately):
+# install.packages(c("survival", "cmprsk", "coxphf"))   # coxphf 1.13.4

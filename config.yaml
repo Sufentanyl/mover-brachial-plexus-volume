@@ -1,0 +1,11 @@
+# 路径配置示例（全部通过环境变量设置）
+#   MOVER_DIR  MOVER v2 原始数据（EPIC 提取文件：patient_information.csv、
+#              patient_medications.csv、cohort_info.json、EPIC_EMR.tar.gz、pi_pain_meas.txt）
+#   WORK_DIR   管线中间文件（block_cohort.csv、meds_*.csv、results_logid/、results_logid_fix/）
+#   OUT_DIR    最终输出（analysis_571.csv 与各模块结果）
+#   MOVER_TAR  可选：EPIC_EMR.tar.gz 的位置（默认 $MOVER_DIR/EPIC_EMR.tar.gz）
+#   PAIN_MEAS  可选：疼痛测量提取文件（默认 $MOVER_DIR/pi_pain_meas.txt）
+
+MOVER_DIR: /path/to/MOVER
+WORK_DIR: /path/to/work
+OUT_DIR: /path/to/output
