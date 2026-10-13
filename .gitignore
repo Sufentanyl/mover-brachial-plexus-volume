@@ -1,0 +1,30 @@
+# MOVER data and any individual-level derived files must never be committed
+data/
+raw/
+derived/
+output/
+outputs/
+*.csv
+*.parquet
+*.feather
+*.xlsx
+*.xls
+*.pkl
+*.rds
+*.RData
+*.sqlite
+*.db
+*.log
+
+# figures generated from individual-level data
+*.png
+*.tif
+*.tiff
+
+# environment and system files
+.env
+config_local.*
+__pycache__/
+.ipynb_checkpoints/
+.venv/
+.DS_Store
